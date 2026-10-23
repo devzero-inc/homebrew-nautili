@@ -1,0 +1,61 @@
+# Installs what the tap offers, the way a user would, whenever a release (or
+# anyone) changes it. A failure here means `brew install` is broken for users:
+# fix the release's homebrew-tap.ts in devzero-inc/nautili, not these files.
+name: Check
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  formula:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, macos-13]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: '1'
+      HOMEBREW_NO_INSTALL_FROM_API: '1'
+      HOMEBREW_NO_ENV_HINTS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      # Homebrew is preinstalled on these runners. The checkout becomes the tap,
+      # so what is checked is exactly this commit.
+      - name: Tap this checkout
+        run: |
+          tap="$(brew --repository)/Library/Taps/devzero-inc/homebrew-tap"
+          mkdir -p "$(dirname "$tap")"
+          rm -rf "$tap"
+          ln -s "$GITHUB_WORKSPACE" "$tap"
+      - run: brew style devzero-inc/tap
+      - run: brew audit --strict --formula devzero-inc/tap/nautili
+      - run: brew install devzero-inc/tap/nautili
+      - run: brew test devzero-inc/tap/nautili
+      - run: nt --version
+
+  cask:
+    runs-on: macos-latest
+    timeout-minutes: 30
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: '1'
+      HOMEBREW_NO_INSTALL_FROM_API: '1'
+      HOMEBREW_NO_ENV_HINTS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tap this checkout
+        run: |
+          tap="$(brew --repository)/Library/Taps/devzero-inc/homebrew-tap"
+          mkdir -p "$(dirname "$tap")"
+          rm -rf "$tap"
+          ln -s "$GITHUB_WORKSPACE" "$tap"
+      - run: brew audit --cask devzero-inc/tap/nautili-desktop
+      - run: brew install --cask devzero-inc/tap/nautili-desktop
+      - name: The app is installed and signed
+        run: |
+          test -d /Applications/Nautili.app
+          codesign --verify --deep --strict /Applications/Nautili.app
+          spctl --assess --type execute /Applications/Nautili.app
