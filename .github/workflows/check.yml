@@ -20,7 +20,6 @@ jobs:
     timeout-minutes: 30
     env:
       HOMEBREW_NO_AUTO_UPDATE: '1'
-      HOMEBREW_NO_INSTALL_FROM_API: '1'
       HOMEBREW_NO_ENV_HINTS: '1'
     steps:
       - uses: actions/checkout@v4
@@ -39,7 +38,8 @@ jobs:
           rm -rf "$tap"
           ln -s "$GITHUB_WORKSPACE" "$tap"
       - run: brew style devzero-inc/tap
-      - run: brew audit --strict --formula devzero-inc/tap/nautili
+      # No `brew audit` for the formula: it calls `version` redundant wherever it can
+      # read the version off the URL (x64), and the arm64 URL needs it.
       - run: brew install devzero-inc/tap/nautili
       - run: brew test devzero-inc/tap/nautili
       - run: nt --version
@@ -49,7 +49,6 @@ jobs:
     timeout-minutes: 30
     env:
       HOMEBREW_NO_AUTO_UPDATE: '1'
-      HOMEBREW_NO_INSTALL_FROM_API: '1'
       HOMEBREW_NO_ENV_HINTS: '1'
     steps:
       - uses: actions/checkout@v4
