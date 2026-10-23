@@ -33,15 +33,15 @@ jobs:
           fi
       - name: Tap this checkout
         run: |
-          tap="$(brew --repository)/Library/Taps/devzero-inc/homebrew-tap"
+          tap="$(brew --repository)/Library/Taps/devzero-inc/homebrew-nautili"
           mkdir -p "$(dirname "$tap")"
           rm -rf "$tap"
           ln -s "$GITHUB_WORKSPACE" "$tap"
-      - run: brew style devzero-inc/tap
+      - run: brew style devzero-inc/nautili
       # No `brew audit` for the formula: it calls `version` redundant wherever it can
       # read the version off the URL (x64), and the arm64 URL needs it.
-      - run: brew install devzero-inc/tap/nautili
-      - run: brew test devzero-inc/tap/nautili
+      - run: brew install devzero-inc/nautili/nautili
+      - run: brew test devzero-inc/nautili/nautili
       - run: nt --version
 
   cask:
@@ -54,13 +54,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Tap this checkout
         run: |
-          tap="$(brew --repository)/Library/Taps/devzero-inc/homebrew-tap"
+          tap="$(brew --repository)/Library/Taps/devzero-inc/homebrew-nautili"
           mkdir -p "$(dirname "$tap")"
           rm -rf "$tap"
           ln -s "$GITHUB_WORKSPACE" "$tap"
-      - run: brew style devzero-inc/tap
-      - run: brew audit --strict --cask devzero-inc/tap/nautili-desktop
-      - run: brew install --cask devzero-inc/tap/nautili-desktop
+      - run: brew style devzero-inc/nautili
+      - run: brew audit --strict --cask devzero-inc/nautili/nautili-desktop
+      - run: brew install --cask devzero-inc/nautili/nautili-desktop
       - name: The app is installed and signed
         run: |
           test -d /Applications/Nautili.app

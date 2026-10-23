@@ -1,8 +1,8 @@
-# DevZero Homebrew tap
+# Nautili Homebrew tap
 
 ```bash
-brew install devzero-inc/tap/nautili                  # nt, the Nautili terminal client (macOS, Linux)
-brew install --cask devzero-inc/tap/nautili-desktop   # the Nautili desktop app (macOS)
+brew install devzero-inc/nautili/nautili                  # nt, the Nautili terminal client (macOS, Linux)
+brew install --cask devzero-inc/nautili/nautili-desktop   # the Nautili desktop app (macOS)
 ```
 
 `brew upgrade` updates `nt`. The desktop app updates itself.
