@@ -3,8 +3,8 @@
 
 # Written by each release (packages/script/src/homebrew-tap.ts); edits here are overwritten.
 class Nautili < Formula
-  desc "Nautili terminal client (nt)"
-  homepage "https://www.nautili.ai"
+  desc "Terminal client for Nautili (nt)"
+  homepage "https://www.nautili.ai/"
   version "0.0.6"
 
   depends_on "ripgrep"
