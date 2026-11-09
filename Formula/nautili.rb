@@ -5,27 +5,27 @@
 class Nautili < Formula
   desc "Terminal client for Nautili (nt)"
   homepage "https://www.nautili.ai/"
-  version "0.0.6"
+  version "0.0.7"
 
   depends_on "ripgrep"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://releases.nautili.ai/stable/cli/0.0.6/nt-darwin-arm64.zip"
-      sha256 "7f8bb8b769450ce126f2db13cbf3c3a1823a4d7cd3fa5dc06eb6fc8c9bcaf7b9"
+      url "https://releases.nautili.ai/stable/cli/0.0.7/nt-darwin-arm64.zip"
+      sha256 "df6f0a8adbbe3e6873f5fc098466ec135042fb3c9e241bc013472bcc742148ad"
     else
-      url "https://releases.nautili.ai/stable/cli/0.0.6/nt-darwin-x64-baseline.zip"
-      sha256 "ffd4aa2d8a52b9078a11959cc5d4129e9cf58e1160eb0069e3b079b5dd78fe40"
+      url "https://releases.nautili.ai/stable/cli/0.0.7/nt-darwin-x64-baseline.zip"
+      sha256 "d849ff4b3432e690a122cecd47d61bca3af641d67803170008fae706cb5af018"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://releases.nautili.ai/stable/cli/0.0.6/nt-linux-arm64.tar.gz"
-      sha256 "59be7495c2db3a6613d301a73bb18c992ebfe5a58e039f3e623c43083a7df22e"
+      url "https://releases.nautili.ai/stable/cli/0.0.7/nt-linux-arm64.tar.gz"
+      sha256 "66d35343b85179bb9c63cad224b88b44a1dd0c78fac39b106eea677c68b12839"
     else
-      url "https://releases.nautili.ai/stable/cli/0.0.6/nt-linux-x64-baseline.tar.gz"
-      sha256 "a7acf3f91b71c12d676e0ba5b4abd4afba66b06719ab4a7859a3e4f87e8fc30a"
+      url "https://releases.nautili.ai/stable/cli/0.0.7/nt-linux-x64-baseline.tar.gz"
+      sha256 "6acc393a4061ba1d0e722fe5029ed35403a106deaaa454f479bdecde06a94d67"
     end
   end
 
